@@ -1,0 +1,26 @@
+#!/bin/bash
+
+update () {
+  $sudo apt-get update
+  $sudo apt-get upgrade
+  $sudo apt-get dist-upgrade
+  $sudo apt-get autoclean
+  $sudo apt-get autoremove
+}
+
+#http://xmodulo.com/create-dialog-boxes-interactive-shell-script.html
+#                                                                           | columns
+OPTION=$(whiptail --title "Master Script" --menu "Choose your option" 15 55 1 \
+"1" "Update and upgrade" \
+3>&1 1>&2 2>&3)
+
+exitstatus=$?
+if [ $exitstatus = 0 ]; then
+    if [ $OPTION = 1 ]; then
+      update
+    else
+      echo "Something went wrong"
+    fi
+else
+    echo "You chose Cancel."
+fi
